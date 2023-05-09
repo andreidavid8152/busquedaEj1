@@ -7,7 +7,7 @@ public class App extends JFrame {
     private JPanel panelSearch;
     private JTextArea textArea1;
 
-    String text = "";
+    Busqueda b = new Busqueda();
 
     public App() {
 
@@ -22,116 +22,40 @@ public class App extends JFrame {
     }
 
     private void inicio(){
+        textArea1.setText("");
+
         //Target
-        int t1 = 10;
-        int t2 = 64;
-        int t3 = 300;
-        int t4 = 2412;
-        int t5 = 65124;
-        int t6 = 999000;
-        int t7 = 4000000;
+        int t1 = -1;
+        int t2 = -1;
+        int t3 = -1;
+        int t4 = -1;
+        int t5 = -1;
+        int t6 = -1;
+        int t7 = -1;
 
-        int[] a1 = createArray(10);
-        int[] a2 = createArray(100);
-        int[] a3 = createArray(1000);
-        int[] a4 = createArray(10000);
-        int[] a5 = createArray(100000);
-        int[] a6 = createArray(1000000);
-        int[] a7 = createArray(10000000);
 
-        text += "------ LINEAL ------\n\n";
+        textArea1.append("------ LINEAL ------\n\n");
         //Busqueda lineal
-        busquedaLineal(a1, t1);
-        busquedaLineal(a2, t2);
-        busquedaLineal(a3, t3);
-        busquedaLineal(a4, t4);
-        busquedaLineal(a5, t5);
-        busquedaLineal(a6, t6);
-        busquedaLineal(a7, t7);
+        textArea1.append(b.busquedaLineal(b.getA1(), t1));
+        textArea1.append(b.busquedaLineal(b.getA2(), t2));
+        textArea1.append(b.busquedaLineal(b.getA3(), t3));
+        textArea1.append(b.busquedaLineal(b.getA4(), t4));
+        textArea1.append(b.busquedaLineal(b.getA5(), t5));
+        textArea1.append(b.busquedaLineal(b.getA6(), t6));
+        textArea1.append(b.busquedaLineal(b.getA7(), t7));
 
-        text += "------ BINARIA ------\n\n";
+        textArea1.append( "------ BINARIA ------\n\n");
         //Busqueda binaria
-        busquedaBinaria(a1, t1);
-        busquedaBinaria(a2, t2);
-        busquedaBinaria(a3, t3);
-        busquedaBinaria(a4, t4);
-        busquedaBinaria(a5, t5);
-        busquedaBinaria(a6, t6);
-        busquedaBinaria(a7, t7);
+        textArea1.append(b.busquedaBinaria(b.getA1(), t1));
+        textArea1.append(b.busquedaBinaria(b.getA2(), t2));
+        b.busquedaBinaria(b.getA3(), t3);
+        textArea1.append(b.busquedaBinaria(b.getA4(), t4));
+        textArea1.append(b.busquedaBinaria(b.getA5(), t5));
+        textArea1.append(b.busquedaBinaria(b.getA6(), t6));
+        textArea1.append(b.busquedaBinaria(b.getA7(), t7));
 
-
-        textArea1.setText(text);
-        text = "";
     }
 
-    private void busquedaBinaria(int[] a, int target){
-        int res = -1;
-        int izq = 0;
-        int dere = a.length - 1;
 
-        text += "--- Iniciando busqueda binaria en arreglo " + a.length + " ---\n";
-
-        long tInicio = System.nanoTime();
-
-        while (izq <= dere) {
-            int mid = (izq + dere) / 2;
-
-            if (a[mid] == target) {
-                res = mid;
-                break;
-            } else if (a[mid] < target) {
-                izq = mid + 1;
-            } else {
-                dere = mid - 1;
-            }
-        }
-
-        long tFinal = System.nanoTime();
-
-        text += "\nTarget: " + target + "\n";
-
-        text += "Tiempo: " + (tFinal - tInicio) + "ns\n";
-
-        if(res != -1){
-            text += "Posicion: " + res + "\n\n";
-        }else{
-            text += "No se encontro el target\n\n";
-        }
-    }
-
-    private void busquedaLineal(int[] a, int target){
-        int res = -1;
-
-        text += "--- Iniciando busqueda lineal en arreglo " + a.length + " ---\n";
-
-        long tInicio = System.nanoTime();
-
-        for (int i = 0; i < a.length; i++) {
-            if(a[i] == target){
-                res = i;
-                break;
-            }
-        }
-
-        long tFinal = System.nanoTime();
-
-        text += "\nTarget: " + target + "\n";
-
-        text += "Tiempo: " + (tFinal - tInicio) + "ns\n";
-
-        if(res != -1){
-            text += "Posicion: " + res + "\n\n";
-        }else{
-            text += "No se encontro el target\n\n";
-        }
-    }
-
-    private int[] createArray(int t) {
-        int[] arreglo = new int[t];
-        for (int i = 0; i < arreglo.length; i++) {
-            arreglo[i] = i + 1;
-        }
-        return arreglo;
-    }
 
 }
